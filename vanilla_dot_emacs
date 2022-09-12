@@ -1,0 +1,60 @@
+(package-initialize)
+;; Keep (package-initialize) always the first non-commented line in ~/.emacs file.
+
+;; Good way to reload your preference file .emacs file: M-x load-file <RET>
+;; Your preference file .emacs file: loads up every time you start Emacs.
+;; Keep it Simple! Keep it Short!
+;; "My advice: constantly learn how to do task with Emacs that currently requires another program." - Eric Simard
+;; "May the Emacs force be with you!"
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (add-to-list
+   'package-archives
+   ;;'("melpa" . "http://stable.melpa.org/packages/")
+   '("melpa" . "http://melpa.milkbox.net/packages/")
+   )
+  )
+
+;; Press a key in Dired Mode (After activation, open files or directory in current buffer.
+(put 'dired-find-alternate-file 'disabled nil)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(custom-enabled-themes '(tango-dark))
+ '(ispell-dictionary nil)
+ '(package-selected-packages '(org))
+ '(save-place-mode t)
+ '(scroll-bar-mode nil)
+ '(show-paren-mode t)
+ '(tool-bar-mode nil)
+ '(tooltip-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "PfEd" :slant oblique :weight bold :height 83 :width normal))))
+ '(region ((t (:extend t :background "gray79" :distant-foreground "gtk_selection_fg_color")))))
+
+
+;; Keep "custom-set-variables" and "custom-set-faces" above everything else.
+
+;; To bring back the startup screen: M-x about-emacs <RET>
+(setq inhibit-startup-screen t)
+;; remove menu bar
+;; Toggle the menu bar displayed or hidden: M-x menu-bar-mode)
+(menu-bar-mode -1)
+
+
+;; Press M-x iwb (indent whole buffer).
+(defun iwb ()
+  "indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max))
+  )
